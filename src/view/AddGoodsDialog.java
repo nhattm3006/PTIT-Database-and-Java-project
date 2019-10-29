@@ -1,5 +1,7 @@
-package gamingcenter;
+package view;
 
+import controller.MySQLConnUtils;
+import view.MainWindow;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

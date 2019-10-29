@@ -1,8 +1,9 @@
-package gamingcenter;
+package view;
 
-import gamingcenter.tableData.Account;
-import gamingcenter.tableData.Computer;
-import gamingcenter.tableData.Goods;
+import controller.MySQLConnUtils;
+import model.Account;
+import model.Computer;
+import model.Goods;
 import java.awt.Font;
 import java.awt.List;
 import java.sql.Connection;

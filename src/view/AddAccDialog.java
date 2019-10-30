@@ -119,6 +119,7 @@ public class AddAccDialog extends javax.swing.JDialog {
         String acc_name;
         String passwd;
         float money;
+        int newAccId = 0;
         
         acc_name = jTextField1.getText().trim();
         passwd = jTextField2.getText().trim();
@@ -129,6 +130,9 @@ public class AddAccDialog extends javax.swing.JDialog {
             if (checkAccExist(acc_name, list) == false) {
                 try {
                     addAcc(acc_name, passwd, money);
+                    Account account = (Account)list.get(list.size() - 1);
+                    newAccId = account.getId() + 1;
+                    addBill(newAccId);
                 } catch (SQLException ex) {
                     Logger.getLogger(AddAccDialog.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
@@ -154,6 +158,17 @@ public class AddAccDialog extends javax.swing.JDialog {
         pstm.setString(1, acc_name);
         pstm.setString(2, passwd);
         pstm.setFloat(3, money);
+        
+        pstm.execute();
+        conn.close();
+    }
+    
+    private void addBill(int acc_id) throws SQLException, ClassNotFoundException {
+        Connection conn = MySQLConnUtils.getMySQLConnection();
+        String query = "insert into bill(acc_id, date_created) value(?, current_date())";
+        PreparedStatement pstm = conn.prepareStatement(query);
+        
+        pstm.setInt(1, acc_id);
         
         pstm.execute();
         conn.close();

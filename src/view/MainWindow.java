@@ -5,7 +5,6 @@ import model.Account;
 import model.Computer;
 import model.Goods;
 import java.awt.Font;
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -191,6 +190,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItem1.setText("Add account");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem1);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.ALT_MASK));
@@ -277,6 +281,16 @@ public class MainWindow extends javax.swing.JFrame {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        AddAccDialog aad = new AddAccDialog(this, true);
+        aad.setVisible(true);
+        try {
+            loadDataIntoJTable1();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public static void main() {
         /* Set the Nimbus look and feel */

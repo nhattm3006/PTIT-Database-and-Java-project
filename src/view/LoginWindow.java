@@ -7,18 +7,24 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author minhn
  */
 public class LoginWindow extends javax.swing.JFrame {
-
-    /**
-     * Creates new form LoginWindow
-     */
+    boolean canClose;
+    
     public LoginWindow() {
         initComponents();
+        canClose = false;
     }
 
     /**
@@ -33,10 +39,10 @@ public class LoginWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -48,8 +54,6 @@ public class LoginWindow extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
         jLabel2.setText("PASSWORD");
-
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
         jButton1.setText("LOGIN");
@@ -65,6 +69,8 @@ public class LoginWindow extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 0, 0));
 
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,9 +83,9 @@ public class LoginWindow extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                    .addComponent(jButton2))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addComponent(jPasswordField1))
                 .addContainerGap(78, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -94,9 +100,9 @@ public class LoginWindow extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField1))
                 .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(37, 37, 37)
@@ -111,19 +117,56 @@ public class LoginWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String username = jLabel1.getText();
-        String passwd = jLabel2.getText();
+        String username = jTextField1.getText().trim();
+        char[] passwd = jPasswordField1.getPassword();
         
-        if (username == "root" && passwd == "toor") {
-            System.out.println("Close login window");
-            System.out.println("Show main window");
-        }
-        else {
-            jLabel3.setText("incorrect username or password");
-            jLabel3.setForeground(Color.red);
+        try {
+            if (validate(username, passwd)) {
+                canClose = true;
+            }
+            else {
+                jLabel3.setText("incorrect username or password");
+                jLabel3.setForeground(Color.red);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Load all account in app_account_list file
+    // and compare with input
+    private boolean validate(String usr, char[] pass) throws FileNotFoundException {
+        File file = new File("C:\\Users\\minhn\\Documents\\GitHub\\PTIT-Database-and-Java-project\\app_account_list");
+        Scanner sc = new Scanner(file);
+        
+        while (sc.hasNextLine()) {
+            String[] inp = sc.nextLine().split(" ");
+            String acc = inp[0];
+            char[] pa = stringToChar(inp[1]);
+            
+            if (usr.equals(acc) && Arrays.equals(pass, pa))
+                return true;
+        }
+        return false;
+    }
+    
+    private char[] stringToChar(String s) {
+        char[] c = new char[s.length()];
+        
+        for (int i = 0; i < s.length(); i++) {
+            c[i] = s.charAt(i);
+        }
+        return c;
+    }
+    
+    public void closeAndOpenMainWindow() {
+        dispose();
+    }
+    
+    public boolean checkIsCanClose() {
+        return this.canClose;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -165,7 +208,7 @@ public class LoginWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

@@ -211,7 +211,7 @@ public class AddGoodsDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
-    public void addGoods(String name, int type_id, String unit, float price, int stock) 
+    private void addGoods(String name, int type_id, String unit, float price, int stock) 
             throws ClassNotFoundException, SQLException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         String query = "insert into goods(goods_name, type_id, unit, price, stock) values(?, ?, ?, ?, ?)";

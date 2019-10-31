@@ -14,6 +14,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import model.Order;
 
 public class MainWindow extends javax.swing.JFrame {
     private DefaultTableModel model;
@@ -22,18 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();   // Drag & Drop
         
         // Load data to tables
-        loadDataIntoJTable1();
-        jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
-        jTable1.setRowHeight(50);
-        loadDataIntoJTable2();
-        jTable2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
-        jTable2.setRowHeight(50);
-        loadDataIntoJTable3();
-        jTable3.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
-        jTable3.setRowHeight(50);
-//        loadDataIntoJTable4();
-//        jTable2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
-//        jTable2.setRowHeight(50);
+        loadDataIntoTable();
     }
 
     @SuppressWarnings("unchecked")
@@ -361,6 +351,24 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 
+    private void loadDataIntoTable() throws ClassNotFoundException {
+        loadDataIntoJTable1();
+        jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
+        jTable1.setRowHeight(50);
+        
+        loadDataIntoJTable2();
+        jTable2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
+        jTable2.setRowHeight(50);
+        
+        loadDataIntoJTable3();
+        jTable3.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
+        jTable3.setRowHeight(50);
+        
+        loadDataIntoJTable4();
+        jTable4.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
+        jTable4.setRowHeight(50);
+    }
+    
     private void loadDataIntoJTable1() throws ClassNotFoundException {
         model = new DefaultTableModel();
         
@@ -515,6 +523,57 @@ public class MainWindow extends javax.swing.JFrame {
             conn.close();
             
             return goodsList;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    private void loadDataIntoJTable4() throws ClassNotFoundException {
+        model = new DefaultTableModel();
+        
+        // Set column title
+        Vector column = new Vector();
+        column.add("Order ID");
+        column.add("Goods name");
+        column.add("Bill ID");
+        column.add("Amount");
+        model.setColumnIdentifiers(column);
+        
+        // Set row value
+        Vector<Order> list = getOrderFromDB();
+        for (int i = 0; i < list.size(); i++) {
+            Order order = (Order)list.get(i);
+            Vector row = new Vector();
+            row.add(order.getId());
+            row.add(order.getGoods_name());
+            row.add(order.getBill_id());
+            row.add(order.getAmount());
+            model.addRow(row);
+        }
+
+        jTable4.setModel(model);
+    }
+    
+    private Vector<Order> getOrderFromDB() throws ClassNotFoundException{
+        try {
+            // Connect to database
+            Connection conn = MySQLConnUtils.getMySQLConnection();
+        
+            // MySQL statement & result
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select id, (select goods_name from goods where goods.id = single_order.goods_id) as 'goods name', bill_id, amount from single_order");
+            ResultSetMetaData rsmd = rs.getMetaData();
+            
+            Vector<Order> orderList = new Vector<Order>();
+            while (rs.next()) {
+                Order order = new Order(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4));
+                orderList.add(order);
+            }
+            conn.close();
+            
+            return orderList;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

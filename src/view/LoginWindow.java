@@ -9,11 +9,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginWindow extends javax.swing.JFrame {
-    boolean canClose;
+    boolean loggedIn;
     
     public LoginWindow() {
         initComponents();
-        canClose = false;
+        loggedIn = false;
     }
 
     @SuppressWarnings("unchecked")
@@ -106,7 +106,7 @@ public class LoginWindow extends javax.swing.JFrame {
         
         try {
             if (validate(username, passwd)) {
-                canClose = true;
+                loggedIn = true;
             }
             else {
                 jLabel3.setText("incorrect username or password");
@@ -143,12 +143,12 @@ public class LoginWindow extends javax.swing.JFrame {
         return c;
     }
     
-    public void closeAndOpenMainWindow() {
+    public void close() {
         dispose();
     }
     
-    public boolean checkIsCanClose() {
-        return this.canClose;
+    public boolean isLoggedIn() {
+        return this.loggedIn;
     }
     
     public static void main(String args[]) {

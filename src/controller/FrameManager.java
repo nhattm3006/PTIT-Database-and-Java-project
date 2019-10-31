@@ -23,11 +23,11 @@ public class FrameManager {
         while (true) {
             // Magic bug ???
             // The most importain in code :))))
-            System.out.println(loginw.isVisible() + " " + loginw.checkIsCanClose()); // Don't comment or delete this line
-            if(loginw.isVisible() && loginw.checkIsCanClose()) {
-                loginw.closeAndOpenMainWindow();
+            System.out.println(loginw.isVisible() + " " + loginw.isLoggedIn()); // Don't comment or delete this line
+            if(loginw.isVisible() && loginw.isLoggedIn()) {
+                loginw.close();
                 showMainWindow();
-                System.out.println("last: " + loginw.isVisible() + " " + loginw.checkIsCanClose());
+                System.out.println("last: " + loginw.isVisible() + " " + loginw.isLoggedIn());
                 break;
             }
         }

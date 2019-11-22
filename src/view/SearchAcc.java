@@ -1,6 +1,7 @@
 package view;
 
 import controller.MySQLConnUtils;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -149,10 +150,12 @@ public class SearchAcc extends javax.swing.JDialog {
             Logger.getLogger(SearchAcc.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SearchAcc.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SearchAcc.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void searchAcc(String accName) throws SQLException, ClassNotFoundException {
+    private void searchAcc(String accName) throws SQLException, ClassNotFoundException, FileNotFoundException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         Statement statement = conn.createStatement();
         String query = "select acc_name, date_created, money from acc where acc_name = ?";

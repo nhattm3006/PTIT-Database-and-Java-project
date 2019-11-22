@@ -1,6 +1,7 @@
 package view;
 
 import controller.MySQLConnUtils;
+import java.io.FileNotFoundException;
 import view.MainWindow;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -152,6 +153,8 @@ public class AddGoodsDialog extends javax.swing.JDialog {
             Logger.getLogger(AddGoodsDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(AddGoodsDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddGoodsDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -212,7 +215,7 @@ public class AddGoodsDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void addGoods(String name, int type_id, String unit, float price, int stock) 
-            throws ClassNotFoundException, SQLException {
+            throws ClassNotFoundException, SQLException, FileNotFoundException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         String query = "insert into goods(goods_name, type_id, unit, price, stock) values(?, ?, ?, ?, ?)";
         PreparedStatement pstm = conn.prepareStatement(query);

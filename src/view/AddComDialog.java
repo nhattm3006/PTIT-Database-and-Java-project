@@ -7,6 +7,7 @@ package view;
 
 import controller.MySQLConnUtils;
 import java.awt.Color;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -168,10 +169,12 @@ public class AddComDialog extends javax.swing.JDialog {
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AddAccDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddComDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void addCom(int area, String stt, String acc_name) throws SQLException, ClassNotFoundException {
+    private void addCom(int area, String stt, String acc_name) throws SQLException, ClassNotFoundException, FileNotFoundException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         String query1 = "insert into computer(area_id, stt) values(?, ?)";
         String query2 = "insert into computer(area_id, stt, acc_id) values(?, ?, ?)";
@@ -193,7 +196,7 @@ public class AddComDialog extends javax.swing.JDialog {
         conn.close();
     }
     
-    private int getAccId(String acc_name) throws ClassNotFoundException {
+    private int getAccId(String acc_name) throws ClassNotFoundException, FileNotFoundException {
         int id = 0;
         Vector<Account> list = getAccountsFromDB();
         
@@ -205,7 +208,7 @@ public class AddComDialog extends javax.swing.JDialog {
         return id;
     }
     
-    private Vector<Account> getAccountsFromDB() throws ClassNotFoundException{
+    private Vector<Account> getAccountsFromDB() throws ClassNotFoundException, FileNotFoundException{
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -230,7 +233,7 @@ public class AddComDialog extends javax.swing.JDialog {
         return null;
     }
     
-    private Vector<Computer> getComputersFromDB() throws ClassNotFoundException{
+    private Vector<Computer> getComputersFromDB() throws ClassNotFoundException, FileNotFoundException{
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();

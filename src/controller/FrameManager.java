@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.FileNotFoundException;
 import view.LoginWindow;
 import view.MainWindow;
 
@@ -7,19 +8,19 @@ public class FrameManager {
     LoginWindow loginw;
     MainWindow mainw;
         
-    public FrameManager() throws ClassNotFoundException {
+    public FrameManager() throws ClassNotFoundException, FileNotFoundException {
         loginw = new LoginWindow();
         loginw.setVisible(true);
         control();
     }
     
-    void showMainWindow() throws ClassNotFoundException {
+    void showMainWindow() throws ClassNotFoundException, FileNotFoundException {
         mainw = new MainWindow();
         mainw.setVisible(true);
     }
     
     // Control all the frame
-    public void control() throws ClassNotFoundException {
+    public void control() throws ClassNotFoundException, FileNotFoundException {
         while (true) {
             // Magic bug ???
             // The most importain in code :))))

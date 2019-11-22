@@ -5,6 +5,7 @@ import model.Account;
 import model.Computer;
 import model.Goods;
 import java.awt.Font;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -19,7 +20,7 @@ import model.Order;
 public class MainWindow extends javax.swing.JFrame {
     private DefaultTableModel model;
     
-    public MainWindow() throws ClassNotFoundException {
+    public MainWindow() throws ClassNotFoundException, FileNotFoundException {
         initComponents();   // Drag & Drop
         
         // Load data to tables
@@ -267,6 +268,8 @@ public class MainWindow extends javax.swing.JFrame {
             loadDataIntoJTable2();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
     
@@ -278,6 +281,8 @@ public class MainWindow extends javax.swing.JFrame {
             loadDataIntoJTable3();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
@@ -288,6 +293,8 @@ public class MainWindow extends javax.swing.JFrame {
             loadDataIntoJTable1();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -297,6 +304,8 @@ public class MainWindow extends javax.swing.JFrame {
             aod.setVisible(true);
             loadDataIntoJTable4();
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem11ActionPerformed
@@ -342,6 +351,8 @@ public class MainWindow extends javax.swing.JFrame {
                     new MainWindow().setVisible(true);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -372,7 +383,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
 
-    private void loadDataIntoTable() throws ClassNotFoundException {
+    private void loadDataIntoTable() throws ClassNotFoundException, FileNotFoundException {
         loadDataIntoJTable1();
         jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 24));
         jTable1.setRowHeight(50);
@@ -390,7 +401,7 @@ public class MainWindow extends javax.swing.JFrame {
         jTable4.setRowHeight(50);
     }
     
-    private void loadDataIntoJTable1() throws ClassNotFoundException {
+    private void loadDataIntoJTable1() throws ClassNotFoundException, FileNotFoundException {
         model = new DefaultTableModel();
         
         // Set Column Title
@@ -418,7 +429,8 @@ public class MainWindow extends javax.swing.JFrame {
         jTable1.setModel(model);
     }
     
-    private Vector<Account> getAccountsFromDB() throws ClassNotFoundException{
+    private Vector<Account> getAccountsFromDB() 
+            throws ClassNotFoundException, FileNotFoundException{
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -443,7 +455,7 @@ public class MainWindow extends javax.swing.JFrame {
         return null;
     }
     
-    private void loadDataIntoJTable2() throws ClassNotFoundException {
+    private void loadDataIntoJTable2() throws ClassNotFoundException, FileNotFoundException {
         model = new DefaultTableModel();
         
         // Set column title
@@ -471,7 +483,8 @@ public class MainWindow extends javax.swing.JFrame {
         jTable2.setModel(model);
     }
     
-    private Vector<Computer> getComputersFromDB() throws ClassNotFoundException{
+    private Vector<Computer> getComputersFromDB() 
+            throws ClassNotFoundException, FileNotFoundException{
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -496,7 +509,7 @@ public class MainWindow extends javax.swing.JFrame {
         return null;
     }
     
-    private void loadDataIntoJTable3() throws ClassNotFoundException {
+    private void loadDataIntoJTable3() throws ClassNotFoundException, FileNotFoundException {
         model = new DefaultTableModel();
         
         // Set column title
@@ -526,7 +539,8 @@ public class MainWindow extends javax.swing.JFrame {
         jTable3.setModel(model);
     }
     
-    private Vector<Goods> getGoodsFromDB() throws ClassNotFoundException{
+    private Vector<Goods> getGoodsFromDB() 
+            throws ClassNotFoundException, FileNotFoundException{
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -551,7 +565,7 @@ public class MainWindow extends javax.swing.JFrame {
         return null;
     }
     
-    private void loadDataIntoJTable4() throws ClassNotFoundException {
+    private void loadDataIntoJTable4() throws ClassNotFoundException, FileNotFoundException {
         model = new DefaultTableModel();
         
         // Set column title
@@ -577,7 +591,8 @@ public class MainWindow extends javax.swing.JFrame {
         jTable4.setModel(model);
     }
     
-    private Vector<Order> getOrderFromDB() throws ClassNotFoundException{
+    private Vector<Order> getOrderFromDB() 
+            throws ClassNotFoundException, FileNotFoundException{
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();

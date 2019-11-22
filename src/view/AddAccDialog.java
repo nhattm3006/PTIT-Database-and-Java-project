@@ -2,6 +2,7 @@ package view;
 
 import controller.MySQLConnUtils;
 import java.awt.Color;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -147,10 +148,12 @@ public class AddAccDialog extends javax.swing.JDialog {
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AddAccDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddAccDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void addAcc(String acc_name, String passwd, float money) throws SQLException, ClassNotFoundException {
+    private void addAcc(String acc_name, String passwd, float money) throws SQLException, ClassNotFoundException, FileNotFoundException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         String query = "insert into acc(acc_name, passwd, date_created, money) values(?, ?, current_date(), ?)";
         PreparedStatement pstm = conn.prepareStatement(query);
@@ -163,7 +166,7 @@ public class AddAccDialog extends javax.swing.JDialog {
         conn.close();
     }
     
-    private void addBill(int acc_id) throws SQLException, ClassNotFoundException {
+    private void addBill(int acc_id) throws SQLException, ClassNotFoundException, FileNotFoundException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         String query = "insert into bill(acc_id, date_created) value(?, current_date())";
         PreparedStatement pstm = conn.prepareStatement(query);
@@ -174,7 +177,7 @@ public class AddAccDialog extends javax.swing.JDialog {
         conn.close();
     }
     
-    private Vector<Account> getAccountsFromDB() throws ClassNotFoundException{
+    private Vector<Account> getAccountsFromDB() throws ClassNotFoundException, FileNotFoundException{
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();

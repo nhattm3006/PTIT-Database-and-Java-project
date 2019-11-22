@@ -1,6 +1,7 @@
 package view;
 
 import controller.MySQLConnUtils;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -187,10 +188,12 @@ public class SearchGoods extends javax.swing.JDialog {
             Logger.getLogger(SearchAcc.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SearchAcc.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SearchGoods.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void searchGoods(String goodsName) throws SQLException, ClassNotFoundException {
+    private void searchGoods(String goodsName) throws SQLException, ClassNotFoundException, FileNotFoundException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         Statement statement = conn.createStatement();
         String query = "select goods_name, (select type_name from type_of_goods where id = goods.type_id), unit, price, stock from goods where goods_name = ?";

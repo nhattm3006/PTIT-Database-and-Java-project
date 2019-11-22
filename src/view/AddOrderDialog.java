@@ -1,6 +1,7 @@
 package view;
 
 import controller.MySQLConnUtils;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,13 +17,13 @@ import model.Goods;
 
 public class AddOrderDialog extends javax.swing.JDialog {
 
-    public AddOrderDialog(java.awt.Frame parent, boolean modal) throws ClassNotFoundException {
+    public AddOrderDialog(java.awt.Frame parent, boolean modal) throws ClassNotFoundException, FileNotFoundException {
         super(parent, modal);
         initComponents();
         setGoodsNameComboBox();
     }
     
-    private void setGoodsNameComboBox() throws ClassNotFoundException {
+    private void setGoodsNameComboBox() throws ClassNotFoundException, FileNotFoundException {
         try {
             // Connect to database
             Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -139,11 +140,13 @@ public class AddOrderDialog extends javax.swing.JDialog {
             Logger.getLogger(AddOrderDialog.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AddOrderDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AddOrderDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void addOrder(String goodsName, String accName, int amount) 
-            throws SQLException, ClassNotFoundException {
+            throws SQLException, ClassNotFoundException, FileNotFoundException {
         Connection conn = MySQLConnUtils.getMySQLConnection();
         String query = "insert into single_order(goods_id, bill_id, amount) values((select id from goods where goods_name = ?), (select id from bill where bill.acc_id = (select id from acc where acc_name = ?)), ?)";
         PreparedStatement pstm = conn.prepareStatement(query);
@@ -189,6 +192,8 @@ public class AddOrderDialog extends javax.swing.JDialog {
                 try {
                     dialog = new AddOrderDialog(new javax.swing.JFrame(), true);
                 } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(AddOrderDialog.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
                     Logger.getLogger(AddOrderDialog.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {

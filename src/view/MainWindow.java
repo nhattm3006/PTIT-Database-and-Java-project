@@ -234,6 +234,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem8.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItem8.setText("Search goods");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem8);
 
         jMenuBar1.add(jMenu5);
@@ -300,6 +305,11 @@ public class MainWindow extends javax.swing.JFrame {
         SearchAcc sa = new SearchAcc(this, true);
         sa.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        SearchGoods sg = new SearchGoods(this, true);
+        sg.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     public static void main() {
         /* Set the Nimbus look and feel */

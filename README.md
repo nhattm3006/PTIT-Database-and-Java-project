@@ -6,7 +6,8 @@ IDE: NetBeans IDE 8.0.2
 MySQL Community Server 8.0.18  
 
 * Thêm tài khoản sử dụng app:
-  Thêm vào trong file app_account_list theo định dạng: <account> <password>
+  - Thêm vào trong file app_account_list 
+  - Định dạng: <account> <password>
  
 * Cài đặt ứng dụng:
   - B1: tải toàn bộ project về

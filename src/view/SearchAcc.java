@@ -144,7 +144,7 @@ public class SearchAcc extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            searchAcc(jTextField1.getText().trim());
+            searchAcc(jTextField1.getText().trim().toLowerCase());
         } catch (SQLException ex) {
             Logger.getLogger(SearchAcc.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

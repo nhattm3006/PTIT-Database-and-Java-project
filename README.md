@@ -7,7 +7,7 @@ MySQL Community Server 8.0.18
 
 * Thêm tài khoản sử dụng app:
   - Thêm vào trong file app_account_list 
-  - Định dạng: <account> <password>
+  - Định dạng: <account>_<password> (thay '_' bằng ' ')
  
 * Cài đặt ứng dụng:
   - B1: tải toàn bộ project về

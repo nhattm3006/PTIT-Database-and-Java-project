@@ -23,7 +23,7 @@ public class FrameManager {
     public void control() throws ClassNotFoundException, FileNotFoundException {
         while (true) {
             // Magic bug ???
-            // The most importain in code :))))
+            // The most important line in code :))))
             System.out.println(loginw.isVisible() + " " + loginw.isLoggedIn()); // Don't comment or delete this line
             if(loginw.isVisible() && loginw.isLoggedIn()) {
                 loginw.close();
